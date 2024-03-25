@@ -1,0 +1,281 @@
+%---------
+% place your email id between the braces so that your homework has a name
+\def\yourname{}
+% -----------------------------------------------------
+\def\duedate{3/25/2024}
+\def\duelocation{via \href{https://www.gradescope.com/courses/753885}{Gradescope}}
+\def\hnumber{1}
+\def\prof{Lorenzo Orecchia}
+\def\course{\href{https://canvas.uchicago.edu/courses/56880}{CMSC 27200 - Spring 2024}}
+%-------------------------------------
+
+\documentclass[10pt]{article}
+\usepackage[colorlinks,urlcolor=blue]{hyperref}
+\usepackage[osf]{mathpazo}
+\usepackage{amsmath,amsfonts,graphicx}
+\usepackage{latexsym}
+\usepackage{subfig}
+\usepackage{algpseudocode}
+\usepackage[shortlabels]{enumitem}
+\usepackage{algorithm}
+\usepackage{listings}
+%\usepackage[top=1in,bottom=1.4in,left=1.5in,right=1.5in,centering]{geometry}
+\usepackage{fullpage}
+\usepackage{color}
+\definecolor{mdb}{rgb}{0.3,0.02,0.02} 
+\definecolor{cit}{rgb}{0.05,0.2,0.45} 
+%\pagestyle{myheadings}
+\markboth{\yourname}{\yourname}
+
+\thispagestyle{empty}
+
+\newenvironment{proof}{\par\noindent{\it Proof.}\hspace*{1em}}{$\Box$\bigskip}
+\newcommand{\qed}{$\Box$}
+\newcommand{\alg}[1]{\mathsf{#1}}
+\newcommand{\handout}{
+   \renewcommand{\thepage}{H\hnumber-\arabic{page}}
+   \noindent
+   \begin{center}
+      \vbox{
+    \hbox to \columnwidth {\sc{\course} --- \prof \hfill}
+    \vspace{-2mm}
+    \hbox to \columnwidth {\sc due \MakeLowercase{\duedate} \duelocation\hfill {\Huge\color{mdb}H\hnumber.\yourname}}
+      }
+   \end{center}
+   \vspace*{2mm}
+}
+\newcommand{\solution}[1]{
+\vspace{2mm}
+
+\noindent Collaborators:
+
+\vspace{5mm}
+
+\medskip\noindent{\color{cit}\textbf{Solution:} #1}}
+
+\newcommand{\bit}[1]{\{0,1\}^{ #1 }}
+\newcommand{\extraspace}{\medskip\noindent{\color{cit} Extra space for your solution}\newpage}
+%\dontprintsemicolon
+%\linesnumbered=
+\newtheorem{problem}{\sc\color{cit}Problem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+\newtheorem{claim}{Claim}
+
+
+\begin{document}
+\handout
+\begin{itemize}
+\item The assignment is due at Gradescope on \duedate.
+
+\item A LaTeX template will be provided for each homework. You are strongly encouraged to type your homework into this template using \LaTeX.  If you are writing by hand, please fill in the solutions in this template, inserting additional sheets as necessary. This will help facilitate the grading.
+
+\item You are permitted to discuss the problems with up to 2 other students in the class (per problem); however, {\em you must write up your own solutions, in your own words}. Do not submit anything you cannot explain. If you do collaborate with any of the other students on any problem, please list all your collaborators in the appropriate spaces.
+
+\item Similarly, please list any other source you have used for each problem, including other textbooks or websites.
+
+\item {\em Show your work.} Answers without justification will be given little credit.
+
+\item Your homework is \textit{resubmittable}. Please refer to the course syllabus on Canvas for a more detailed description of this. For any problem that you have not changed from your last submission, please make sure to indicate this in your submission to help our graders grade faster. 
+
+\end{itemize}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}[Syllabus Reading Comprehension] The following questions all pertain to course policy. None are trick questions, and all can be found in the syllabus on Canvas, or in the policies on the first page of this assignment. For this question, please enter your answer directly  as text in Gradescope under HW1 - Problem 1.
+\end{problem}
+
+\begin{enumerate}
+    \item[(a)] You're having a tough first week back, and you want to turn in this homework assignment four days late. What point penalty will you incur on your submission? What benefits exist for turning your assignment in on time?
+    \item[(b)] You got an N on problem 3, but an E on everything else. You read the feedback, went to OH, and have a better solution now. You want to resubmit it, but you've made no changes to any of your other solutions. How should you format your solution for resubmission in Gradescope?
+\end{enumerate}
+
+\solution{
+    \begin{enumerate}
+        \item[(a)] There's no penalty for submitting an assignment four days late. The benefits of submitting on time include 
+            \begin{enumerate}
+                \item[1.]Keeping up the pace with the class.
+                \item[2.]Receiving feedback on time.
+            \end{enumerate}
+        \item[(b)] As each question is separated on Gradescope, we could just submit the changed solution to the specific question.
+    \end{enumerate}
+
+}
+\newpage
+
+\extraspace
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{problem}[Practice with Big O.] For this problem, you may want to review the definition of Big $O$, Big $\Omega$ and Big $\Theta$ [see DPV 0.3]. Helpful resources can also be found on Canvas. In each of the following situations, indicate whether $f = O(g)$, or $f = \Omega(g)$, or both (in which case $f = \Theta(g)$), and \textbf{give a brief explanation} for each answer.
+\end{problem}
+
+\begin{enumerate}[(a)]
+    \item $f(n) = \sum_{i=1}^n i^k$ and $g(n) = n^{k+1}$ for constant $k > 0.$
+    \item $f(n) = \sum_{i=1}^n i^k$ and $g(n) = n^{k+1}$ for $k \in \Theta(\log n).$
+    \item $f(n) = \binom{n}{5}$  and $g(n) = \sqrt{n}^{3\log_2 8}$
+    \item $f(n) = 3^n$ and $g(n) = \sum_{i=1}^n2^i$
+    \item $f(n) = \log (n!)$ and $g(n) = n \log n$
+    \item $f(m,n) = (n+m)^2$ and $g(m,n) = n^2 + m^2$
+\end{enumerate}
+
+\solution{
+    \begin{enumerate}[(a)]
+    \item $f = O(g)$: This is because $g(n) = n^{k+1}$ always grows faster than $f(n) = \sum_{i=1}^n i^k$ for $k > 1$
+    \item $f = O(g)$: $k \in \Theta(\log n)$, g(n) still grows faster than $f(n)$.
+    \item $f = \Omega(g)$: $\binom{n}{5}$ is $\frac{n!}{5!(n-5)!}$, which approximate to $\frac{n^5}{5!}$. $\sqrt{n}^{3\log_2 8}$ can be written as $n^\frac{9}{2}$. As $n^5$ grows faster than $n^\frac{9}{2}$ when n approaches infinity, $f = O(g)$.
+    \item $f = \Omega(g)$: The sum of $2^i$ from $i = 0$ to $i = n$ is $2^{n+1} - 1$. This exponent with a base 2 is smaller than $3^n$. Therefore, $f$ is lower bounded by $g$.
+    \item $f = O(g)$: $f(n) = \log (n!)$ can be written as $\log(n)\log(n-1)\dots\log(1)$, which has n items in between. This always grows slower than $n \log(n)$.
+    \item \begin{enumerate}[(1)]
+        \item $f = O(g)$ if m or n $< 0$: $f(m,n) = (n+m)^2$ can be written as $n^2 + m^2 + 2mn$. As $2mn < 0$, we have $f(m,n)$ smaller than $n^2+m^2$.
+        \item $f = \Omega(g)$ otherwise: In this case, $2mn$ is positive, so it's an addition to $m^2 + n^2$. Therefore we have $f = \Omega(g)$.
+    \end{enumerate}
+\end{enumerate}
+}
+\newpage
+
+\extraspace
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{problem}[``Conflicting" Definitions]
+Surprisingly, our DPV textbook and the KT textbook provide different definitions for big-O notation. For $f,g: \mathbb{N}_{>0} \to \mathbb{R}_{> 0},$ they are:
+\begin{itemize}
+    \item DPV: $f(n) = O(g(n)) \iff \exists c \in \mathbb{R}, \: \forall n \in \mathbb{N}_{>0},\;  f(n) \leq c \cdot g(n)$ 
+    \item KT: $f(n) = O(g(n)) \iff \exists c \in \mathbb{R}, \: \exists n_0 \in \mathbb{N}_{>0}, \: \forall n \geq n_0, \quad f(n) \leq c \cdot g(n).$
+\end{itemize}
+Write a \textbf{formal proof} that the two definitions are equivalent.
+
+\end{problem}
+\solution{
+    if$f(n) = O(g(n))$ by the DPV definition, then we have a constant c such that $f(n) \leq c \cdot g(n)$ for all $n$. This directly satisfies the KT definition, where we could simply choose $n_0 = 1$. Therefore, according to DPV, this also meets the requirement for KT. On the other way around, we assume $f(n) = O(g(n))$ by the KT definition. This means there exists a $c$ and $n_0$ such that$f(n) \leq c \cdot g(n)$ for all $n \geq n_0$. As the KT definition restricts the value of $n$ to be greater or equal to $n_0$, which is a subset of the condition of $n$ in the DPV definition that requires the inequality to hold for all $n$. Therefore, KT inherently satisfies the DPV definition as well. Both ways show they're equal, concluding our proof.
+}
+
+\newpage
+
+\extraspace
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{problem}[Faster Fibonacci] This exercise is similar to 0.4 from [DPV]. Recall that the Fibonacci sequence is defined recursively by:
+\[
+    F_0 = 1,\quad F_1=1,\quad F_{n}= F_{n-1}+F_{n-2}.
+\]
+Is there a faster way to compute the $n^{th}$ Fibonacci number than by \emph{fib2} (DPV, pg. 13)? One idea involves matrices.
+
+If you are not already familiar with matrix multiplication, you will need to learn just a bit of it here. For this problem, you should familiarize yourself with the following:
+\begin{itemize}
+    \item \href{https://www.khanacademy.org/math/algebra-home/alg-matrices/alg-representing-systems-with-matrices/a/representing-systems-with-matrices}{How to convert a linear system to a matrix equation}
+    \item \href{https://www.khanacademy.org/math/precalculus/x9e81a4f98389efdf:matrices/x9e81a4f98389efdf:multiplying-matrices-by-matrices/a/multiplying-matrices}{How to multiply matrices}
+    \item Know that matrix multiplication is associative.
+\end{itemize}
+
+
+
+We start by writing the equations $F_1 = F_1$ and $F_2 = F_0 + F_1$ in matrix notation:
+\[
+    \begin{pmatrix} F_1 \\ F_2\end{pmatrix} = \begin{pmatrix} 0 & 1\\ 1& 1\end{pmatrix}\cdot \begin{pmatrix} F_0 \\ F_1\end{pmatrix}
+\]
+Similarly:
+
+\[
+    \begin{pmatrix} F_2 \\ F_3\end{pmatrix} = \begin{pmatrix} 0 & 1\\ 1& 1\end{pmatrix}\cdot \begin{pmatrix} F_1 \\ F_2\end{pmatrix}= \begin{pmatrix} 0 & 1\\ 1& 1\end{pmatrix}^2\cdot \begin{pmatrix} F_0 \\ F_1\end{pmatrix}
+\]
+and in general:
+\[
+    \begin{pmatrix} F_n \\ F_{n+1}\end{pmatrix} = \begin{pmatrix} 0 & 1\\ 1& 1\end{pmatrix}^n\cdot \begin{pmatrix} F_0 \\ F_1\end{pmatrix}.
+\]
+So, in order to compute $F_n$, it suffices to raise this $2 \times 2$ matrix, call it $X$, to the $n^{th}$ power.
+
+\begin{enumerate}
+    \item[(a)] Show that two $2 \times 2$ matrices can be multiplied using $4$ additions and $8$ multiplications.
+    \item[(b)] Give an algorithm to compute $X^{n}$ using only $O(\log n)$ matrix multiplications. You should provide pseudocode for your algorithm, and give a \textbf{formal proof} that it works correctly and only uses $O(\log n)$ matrix multiplications (Hint: Think about computing $X^8$). 
+    \item[(c)] We name the algorithm from part (b) \emph{fib3}. \textbf{Sketch} a proof that all intermediate results of \emph{fib3} are $O(n)$ bits long.
+    \item[(d)] Let $M(n)$ be the running time of an algorithm for multiplying $n$-bit numbers, and assume that $M(n) = O(n^2)$ (the school method for multiplication, in Chapter 1 of DPV, achieves this). \textbf{Sketch} a proof that the running time of \emph{fib3} is $O(M (n) log n)$.
+    \item[(e)] \textbf{Sketch} a proof that the running time of \emph{fib3} is $O(M (n))$. (Hint: The lengths of the numbers being multiplied get doubled with every squaring.)
+\end{enumerate}
+\end{problem}
+\solution{
+\begin{enumerate}[(a)]
+    \item To show that two \(2 \times 2\) matrices can be multiplied using 4 additions and 8 multiplications, consider two matrices \( A = \begin{pmatrix} a_1 & b_1\\ c_1& d_1\end{pmatrix}\) and \(B = \begin{pmatrix} a_2 & b_2\\ c_2& d_2\end{pmatrix}\). The product \( AB \) is given by:
+
+    \[ AB = \begin{pmatrix} a_1 & b_1\\ c_1& d_1\end{pmatrix} \cdot \begin{pmatrix} a_2 & b_2\\ c_2& d_2\end{pmatrix} = \begin{pmatrix} a_1a_2 + b_1c_2 & a_1b_2 + b_1d_2\\ c_1a_2 + d_1c_2 & c_1b_2 + d_1d_2 \end{pmatrix} \]
+
+    \item The algorithm to compute \( X^n \) using only \( O(\log n) \) matrix multiplications is the attached Algorithm 1. \\
+    \textbf{Proof}: \\
+          \\\textbf{Base Case:} 
+          \begin{itemize}
+              \item $n = 0$: By definition, any non-zero square matrix raised to the power of $0$ is the identity matrix.
+              \item $n = 1$: $X$ is itself. 
+              \\ Base cases use $O(\log{n}) = O(\log{1}) = 0$ multiplications ($\log{0}$ is invalid, we ignore this trivial case).
+          \end{itemize}
+          \textbf{Inductive Step:} Assume the algorithm correctly computes $X^k$ for all integer $0\leq k<n$, and assume the algorithm performs $O(\log{k})$ multiplications for $k<n$.
+          \begin{itemize}
+              \item If $n$ is even, then by our hypothesis, the algorithm can compute $X^n$ as $X^n= X^{2m} = X^m \cdot X^m$, where  m is a value of k. Therefore, squaring it will give us the correct value of $X^n$. Moreover, by inductive hypothesis, $X^m$ requires $\log{m} = \log{\frac{n}{2}})$ multiplications, so need one additional multiplication to get $n$. Therefore, the number of multiplications is $O(\log{\frac{n}{2}}) + 1$, which can be simplified to $O(\log(n))$.
+              \item if $n$ is odd, then $n-1$ is even, and by hypothesis, the algorithm can compute $X^{(n-1)/2}$, we call it $X^m$, correctly as $n-1 \in k$. Then we have $X^n = X^{2m+1} = X \cdot X^m \cdot X^m$. $X^m$ is correct in the hypothesis, then squaring it and multiplying it by $X$ gives the correct $X^n$. Moreover, by inductive hypothesis, $X^m$ requires $\log{m} = \log{\frac{n}{2}}$ multiplications, we need to square it and multiply by $X$, so we have $O(\log(\frac{n}{2}) + 2) = O(\log(n))$ multiplications.
+              \\\\As both cases are proven right, this concludes our proof.
+          \end{itemize} 
+          
+
+    \begin{algorithm}
+        \caption{fib3} 
+        \begin{algorithmic}[1]
+        \Statex \textbf{Input:} One squared matrix $X$ and a number $n$
+        \Statex \textbf{Output:} A squared matrix $X^n$ 
+            
+            \If{$n==0$} 
+                \textbf{return} \begin{pmatrix} 1 & 0\\ 0 & 1\end{pmatrix}\
+            \ElsIf{$n==1$}
+                \textbf{return} X
+            \Else 
+                \State $Y = X^\frac{n}{2}$
+                \If{$n\mod{2}==0$}
+                \State \textbf{return} $Y*Y$
+                \Else
+                \State \textbf{return} $X*Y*Y$
+            \EndIf
+                
+        \end{algorithmic}
+    \end{algorithm}
+
+
+    \item \textbf{Proof:} The $n$th Fibonacci number never exceeds $2^n$. Therefore, the number of bits required to represent it is at most $n$ bits. In the above algorithm, intermediate results are obtained by matrix multiplications involving matrices whose elements are Fibonacci numbers. Since the largest Fibonacci number involved in calculating $n$th Fibonacci number is $F_n$, which requires $O(n)$ bits, all intermediate matrix elements are also $O(n)$ bits. 
+    \item For each iteration, the running time is $M(n)$, and we have $O(\log{n})$ iterations. Therefore, we have $O(M($n$)\log n)$ running time.
+    \item As each squaring doubles the bits needed to represent the number, and we need $O(\log(n))$ squarings, we have $O(1)+O(2^2)+O(2^4)+\dots+O(2^{2\log(n)})$, which finally converges to $O(n^2)$. This is equivalent to $O(M(n))$.
+\end{enumerate}
+  
+
+}
+
+\newpage
+\extraspace
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{problem}[Fibonacci Implementation] For this problem, you will be asked to implement a function that computes the value of the $n^{th}$ Fibonacci number, and compare its runtime to that of the algorithms seen in class. You can find the questions \href{https://colab.research.google.com/drive/1bsq4NCaGU19B6JKf2e3sqjM4CLIBKhAt}{here}. Create a copy of the document, implement the required code, turn on link sharing, and include a link to your document here.
+\end{problem}
+\solution{
+  \href{https://colab.research.google.com/drive/1Lh-TP6RcJGzzoUqCG7mawYGUBjAtQrFa?usp=sharing}{Click Here}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\end{document}
