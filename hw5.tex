@@ -1,6 +1,6 @@
 %---------
 % place your email id between the braces so that your homework has a name
-\def\yourname{}
+\def\yourname{Mark Xiong}
 % -----------------------------------------------------
 \def\duedate{4/19/24}
 \def\duelocation{via \href{https://www.gradescope.com/courses/753885}{Gradescope}}
@@ -35,7 +35,7 @@
 \definecolor{cit}{rgb}{0.05,0.2,0.45}
 \usepackage{wrapfig}
 %\pagestyle{myheadings}
-\markboth{\yourname}{\yourname}
+\markboth{Haoxiang}{\yourname}
 
 \thispagestyle{empty}
 
@@ -119,7 +119,17 @@ For the following statements, state whether the statement is true or false. If t
 \end{problem}
 
 \begin{solution}
-    
+    The solution is as follows:
+    \begin{enumerate} [(a)]
+        \item False. Consider $f(n) = 1, g(n) = 2: \log(f(n)) = 0$ and $\log(g(n)) = O(1)$.
+        \item \textcolor{blue}{False. Consider $f(n) = 1, g(n) = 2: f(n) = \Omega(g(n))$, but we have $\log(f(n)) = 0$ and $\log(g(n)) = O(1)$.}
+        \item False. $T(n) = 8T(n/2) + O(n^d)$ is $O(n^d)$ for $d > 3$. Applying Master Theorem gives that it's false for $d < 3$. When $d = 2$, we have $O(n^{\log_b a})$ = $O(n^{\log_2 8}) = O(n^3)$.
+        \item True. Fourth roots of unity are $1, -1, i, -i$. When they are raised to the eighth power, they also yield 1. So, every fourth root of unity is also an eighth root of unity.
+        \item True. Start with any vertex $v$, Since there are no cycles, you cannot keep moving backwards indefinitely. If you attempt to move backwards from 
+        v to its predecessors repeatedly, because there are no cycles, you must eventually reach a vertex that has no predecessors. Similarly, you cannot continue the process of finding successors indefinitely, therefore you must eventually reach a vertex that has no successors, which is a sink.
+        \item False. Consider a graph with a line-like structure, with a source at one end and a sink at the other. If you add an edge from the a node in the middle to another node in the middle before it, the graph will no longer be a DAG as it forms a cycle.
+        \item False. Consider an triangle with nodes A B C, with edge weights AB = 3, BC = -2, AC = 2. Dijkstra's algorithm will return a shortest path from A to C as A -> C, with a total weight of 2. However, the shortest path is A -> B -> C with a total weight of 1.
+    \end{enumerate}   
 \end{solution}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -166,20 +176,21 @@ For the following statements, state whether the statement is true or false. If t
          \hline 
          Step 1: -& \;\text{ $0$ }\; & \;$\infty$\; & \;$\infty$\; & \;$\infty$\; & \;$\infty$\; & \;$\infty$\; & \;$\infty$\;\\
          \hline
-         Step 2:  & & &  & &  &  & \\
+         Step 2: & \;\text{ $0$ }\; & 2 & \;$\infty$\; & \;$\infty$\; & \;$\infty$\; & \;$\infty$\; & \;$\infty$\;\\
          \hline
-         Step 3:  &  &  &  &  &  &  & \\
+         Step 3:  & 0 & 2 & 5 & $\infty$ & $\infty$ & $\infty$ & $\infty$\\
          \hline
-         Step 4:  &  &  &  &  &  &  & \\
+         Step 4:  & 0 & 2 & 5 & 9 & $\infty$ & $\infty$ & $\infty$\\
          \hline
-         Step 5:  &  &  &  &  &  &  & \\
+         Step 5:  & 0 & 2 & 5 & 9 & 14 & $\infty$ & 10 \\
          \hline
-         Step 6:  &  &  &  &  &  &  & \\
+         Step 6:  & 0 & 2 & 5 & 9 & 14 & 16 & 10\\
          \hline
-         Step 7: &  &  & &  & &  &\\
+         Step 7:  & 0 & 2 & 5 & 9 & 14 & 16 & 10\\
          \hline
-         Step 8: & & & & & & & \\
+         Step 8: & 0 & 2 & 5 & 9 & 14 & 16 & 10\\
          \hline
+
     \end{tabular}
 \end{center}
 \end{problem}
