@@ -1,6 +1,6 @@
 %---------
 % place your email id between the braces so that your homework has a name
-\def\yourname{}
+\def\yourname{Mark Xiong}
 % -----------------------------------------------------
 \def\duedate{5/10/24}
 \def\duelocation{via \href{https://www.gradescope.com/courses/753885}{Gradescope}}
@@ -115,7 +115,40 @@ Here, each variable $x_i$ is meant to indicate whether or not we are including a
 \end{problem}
 
 \begin{solution}
-Your solution here!
+The solution is as follows:
+    \begin{enumerate}[(a)]
+        \item The above linear program does not solve the original 0-1 Knapsack problem because the variables $x_i$ are not restricted to be binary. This means that the LP can select a fractional amount of each item, which is not allowed in the 0-1 Knapsack problem. For example, consider the following instance of the 0-1 Knapsack problem: $n=2$, $W=1$, $v_1=1$, $v_2=1$, $w_1=1$, $w_2=1$. The optimal solution to the 0-1 Knapsack problem is to select either item 1 or item 2, but not both. However, the LP can select $x_1 = 0.5$ and $x_2 = 0.5$, which is not a valid solution to the 0-1 Knapsack problem.
+        \item The problem solved by an instance of (\ref{LP}) is to find the optimal fractional assignment of items to maximize the total value of the items while satisfying the weight constraint.
+        \item The algorithm to solve the fractional knapsack problem is a greedy algorithm that involves sorting items by they value/weight ratio in descending order and then add them to the knapsack until the limit is reached. The pseudocode is as follows:
+            \begin{algorithm}
+                \caption{Fractional Knapsack}
+                \textbf{Input:} Items with values and weights $\{(v_i,w_i)\}_{i=1}^n$ and a weight budget $\underline{W}$\\
+                \textbf{Output:} The total value of the items in the knapsack
+                \begin{algorithmic}[1]
+                    \State Sort items by value/weight ratio in descending order
+                    \State Initialize total value $V = 0$ and total weight $W = 0$
+                    \For{each item $i$}
+                        \If{$W + w_i \leq \underline{W}$}
+                            \State Add item $i$ to the knapsack
+                            \State Update $V = V + v_i$ and $W = W + w_i$
+                        \Else
+                            \State Add a fraction of item $i$ to the knapsack
+                            \State Update $V = V + v_i \cdot \frac{\underline{W} - W}{w_i}$
+                            \State Break
+                        \EndIf
+                    \EndFor
+                    \State \Return $V$
+                \end{algorithmic}
+            \end{algorithm}
+            \\\\\\\\\\\\\\\\\\
+        \item The dual of (\ref{LP}) is: Given we have a maximizing question as our primal question, the dual should be a minimization problem. For the first constraint, we have a $\leq$ inequality, so the dual should have a $\geq$ inequality, and we introduce variable $y$. For the second constraint, as negative values are not allowed, we have a $\geq$ inequality, and we assign $z_i$ to the upper bound constraint. The dual of (\ref{LP}) is:
+            \begin{align*}
+                \min_{y \in \mathbb{R}^n} \quad & W \cdot y + \sum_{i=1}^n{z_i}\\
+                & yw_i + z_i \geq v_i \hspace*{1cm} \forall i \in [n]\\
+                & y \geq 0\\
+                &z_i \geq 0 \hspace*{1cm} \forall i \in [n]
+            \end{align*}
+    \end{enumerate}
 \end{solution}
 
 \newpage
@@ -146,7 +179,18 @@ Let $G$ be a flow network with integer edge capacities. An edge in $G$ is upper-
 \end{problem}
 
 \begin{solution}
-Your solution here!
+The solution is as follows:
+    \begin{enumerate}
+        \item  No. Consider a network where there're two paths from $s$ to $t$, we have edge $su$ with capacity 1 and edge $ut$ with capacity 1, and we have edge $sv$ and edge $vt$ with capacity 1 as well. Increasing the capacity of edge $su$ by 1 does not increase the value of the maximum flow in $G$ as $t$ is only able to receive a flow of 2.
+        \item Yes. Accordingyo Max-Flow Min-Cut theorem, the value of the maximum flow in a network is equal to the capacity of the minimum cut. Therefore, if we decrease the capacity of any edge in the minimum cut, the value of the maximum flow will decrease as well, so we have at least one edge in every minimum cut must be lower-binding.
+        \item This is not true: Let's have a similar network as in part (a), but instead of having $sv$ and $vt$ with capacity 1, we have $st$ directly with capacity 2. In this case, all edges are saturated under the max flow which is 3, but increasing the capacity of edge $su$ or $ut$ by 1 does not increase the value of the maximum flow in $G$. So by the definition of upper-binding edge, $e$ is not an upper-binding edge.
+        \item The proof is as follows: The divergence at a vertex $v$ is the total flow into $v$ minus the total flow out of $v$, which is the net outflow of $v$. The sum of divergence over all vertices in $S$ is equal to all outflows from vertice in $S$ subtracting all inflows to vertices in $S$. Those flows that flow from $S$ tp $S$ would not count as they do not contribute to the net boundary flow. Those flows that effectively cross the boundary of $S$ would contribute to the net boundary flow, and is therefore captured as 
+        \[
+        \sum_{v \in S} div(v) = \sum_{(u,v) \in E(S,\overline{S})} f_{uv} - \sum_{(u,v) \in E(\overline{S},S)} f_{uv},
+    \] This concludes our proof.
+        \item The proof is as follows: We will prove this by contradition.
+        Assume for contradition that edge $e$ is an upper-binding edge, but is not saturated under any max flow $f$. This means that increasing the capacity of $e$ by 1 would increase the value of the maximum flow in $G$, but $f(e) < c(e)$. However, this contradicts the definition of an upper-binding edge, which states that increasing the capacity of $e$ by 1 would increase the value of the maximum flow in $G$,  as it's not saturated so increasing the capacity would not increase the flow in the network. Therefore, edge $e$ must be saturated under any max flow $f$.
+    \end{enumerate}
 \end{solution}
 
 \newpage
@@ -166,7 +210,30 @@ Consider an undirected graph $G = (V, E)$ with capacities $c_e\ge 0$ on all edge
 \end{problem}
 
 \begin{solution}
-Your solution here!
+The solution goes as follows:
+    \begin{enumerate}[(a)]
+        \item The max flow from $s$ to $t$ is at least 1 because the capacity of any cut in $G$ is at least 1. By the Max-Flow Min-Cut theorem, the value of the maximum flow in a network is equal to the capacity of the minimum cut. Therefore, the value of the maximum flow from $s$ to $t$ is at least 1.
+        \item To compute $d_{\text{flow}} (s,t)$, We could have the following LP: As we want to minimize the length of any s-t flow that sends one unit of flow from s to t, we can minimize the sum of the absolute values of the flows on all edges. So we have 
+        \[
+            \min_{f \in \mathbb{R}^{|E|}} \quad \sum_{e \in E} |f_e| 
+        \]
+        For constrains, we have the following:
+        \begin{enumerate}[(1)]
+            \item we need to preserve the flow conservation, so we have $\sum_{(u,v) \in E} f_{uv} - \sum_{(v,w) \in E} f_{vw} = 0$ for all $v \in V \setminus \{s,t\}$.
+            \item we need to send exactly one unit of flow from s to t, so we have $\sum_{(s,v) \in E} f_{sv} - \sum_{(v,s) \in E} f_{vs} = 1$. As the graph is undirected, we also need to have $\sum_{(t,v) \in E} f_{tv} - \sum_{(v,t) \in E} f_{vt} = -1$.
+            \item Regarding the capacity constraints, we have $-c_e \leq f_e \leq c_e$ for all $e \in E$.
+        \end{enumerate}
+        To linearlize the absolute value, we can introduce two variables $f_e^+$ and $f_e^-$ for each edge $e$, and add the following constraints: $f_e = f_e^+ - f_e^-$ and $f_e^+, f_e^- \geq 0$. Therefore, we have the following LP:
+        \begin{align*}
+            \min_{f^+, f^- \in \mathbb{R}^{|E|}} \quad & \sum_{e \in E} f_e^+ + f_e^-\\
+            & \sum_{(u,v) \in E} f_{uv} - \sum_{(v,w) \in E} f_{vw} = 0 \hspace{1cm} \forall v \in V \setminus \{s,t\}\\
+            & \sum_{(s,v) \in E} f_{sv} - \sum_{(v,s) \in E} f_{vs} = 1\\
+            & \sum_{(t,v) \in E} f_{tv} - \sum_{(v,t) \in E} f_{vt} = -1\\
+            & -c_e \leq f_e^+ - f_e^- \leq c_e \hspace{1cm} \forall e \in E\\
+            & f_e^+, f_e^- \geq 0 \hspace{1cm} \forall e \in E
+        \end{align*}
+        \item For the upper bound $d_{flow}(s,t) \leq d(s,t)$, we could take the shortest path from $s$ to $t$ consisting of $d(s,t)$ edges, and assign a flow of 1 to each edge. This flow satisfies all capacity constraints, and has length $d(s,t)$, so $d_{flow}(s,t) \leq d(s,t)$. For the lower bound $d_{flow}(s,t) \geq d(s,t)$, since any flow from $s$ to $t$ must send one unit of flow from $s$ to $t$, the length of any flow from $s$ to $t$ is at least the length of the shortest path from $s$ to $t$, otherwise it would imply a shorter path exists, which contradicts the definition of the shortest path. Therefore, $d_{flow}(s,t) \geq d(s,t)$, and we have $d_{flow}(s,t) = d(s,t)$.
+    \end{enumerate}
 \end{solution}
 
 
@@ -216,7 +283,23 @@ We are interested in \textbf{mixed strategies} for this game: Lorenzo will assig
 
 
 \begin{solution}
-Your solution here!
+The solution is as follows:
+\begin{enumerate} [(a)]
+    \item The LP represents the game as follows: Lorenzo is trying to maximize the probability of winning the game, which is represented by the variable $\alpha$. $\max{\alpha}$ represents that Lorenzon is trying to maximize the probability of him winning the game over all possible strategies that Ruimin might choose. The constraint $\sum_{e \in C} q_e \geq \alpha$ for all $C \in \mathcal{C}$ represents that the probability of winning the game is at least $\alpha$ for all possible cuts that Ruimin might choose. The constraint $\sum_e q_e = 1$ represents that the probabilities of all possible strategies that Lorenzo might choose must sum to 1, ensuring a valid probability distribution. The constraint $0 \leq q_e$ for all $e \in E(G)$ represents that the probabilities of all possible strategies that Lorenzo might choose must be non-negative.
+    \item Given that Lorenzo can adapt after Ruimin has chosen his strategy, Ruimin must minimize Lorenzo's probability of winning the game. The LP that Ruimin must solve is: 
+    \begin{align*}
+        \min_{\beta, r}\quad&  \beta\\
+        &\sum_{C: e \in E(C, \overline{C})} q_C \leq \beta \quad \forall e \in E(G)\\
+        &\sum_{C \in \mathcal{C}} q_C = 1\\
+        &q_C \geq 0 \quad \forall C \in \mathcal{C}
+    \end{align*}
+    where $r_C$ represents the probability of Ruimin choosing cut $C$, and the constraints ensure that the maximum probability that Lorenzo wins the game is $\beta$.
+    \item The dual can be shown as follows: \\
+    The dual of the LP that Lorenzo must solve is: Each constraint in the primal LP corresponds to a dual variable $p_C$, which represents the probability of selecting the cut C. The primal objective to maximize $\alpha$ corresponds to minimizing the dual objective $\beta$, reflecting the tightest upper bound that Ruimin wants to achieve on Lorenzo's probability of winning. \\
+    The dual of the LP that Ruimin must solve is: Each constraint in the primal LP corresponds to a dual variable $q_e$, which represents the probability of selecting the edge $e$. The primal objective to minimize $\beta$ corresponds to maximizing the dual objective $\alpha$, reflecting the tightest lower bound that Lorenzo wants to achieve on Ruimin's probability of winning. The dual of a dual program is the primal program, so the LPs are each other's dual.
+    \item The duality of the LPs implies that there exists a probability $p$ such that if Lorenzo plays optimally, his probability of winning is at least $p$, even if Ruimin knows his strategy, and if Ruimin plays optimally, Lorenzo's probability of winning is at most $p$, even if Lorenzo knows Ruimin's strategy. The strong duality in LPs implies that at optimality, the primal and dual objectives are equal, so the probability $p$ is the same for both players.
+    \item Given the optimal play, the shortest path from $s$ to $t$ is the optimal strategy for Ruimin as it represents the minimum number of edges needed to cut to seperate $s$ from $t$. Assuming each edge on this path is equally likely to be selected by Lorenzo (since any edge being cut guarantees $s, t$ are separated), and there're $L$ edges on the shortest path, so the probability for each edge to be selected should be ideally $\frac{1}{L}$. Therefore, $p = \frac{i}{L}$ becomes the probability of Lorenzo winning if both players play optimally.
+\end{enumerate}
 \end{solution}
 
 
