@@ -142,11 +142,11 @@ More formally, you are given a connected, directed, weighted graph $G=(V, E)$, w
         Proof of correctness: Dijkstra's algorithm guarantees that the shortest path from a single source to any other vertex in a graph with non-negative weights is found.
         By running Dijkstra's algorithm twice, we can find the shortest path from San Francisco to $y_1$ and from $y_2$ to Chicago. The algorithm calculates the shortest path that passes through the yellow stone edge by 
         combining the two shortest paths and the weight of the yellow stone edge. The two calls to Dijkstra's algorithm guarantee that the shortest path is found.
-        \item Introduce a negative weight to the edge going from $y_1$ to $y_2$, the negative value should ensure it's sufficient to overcome any other potentially shorter paths that do not include $e(y_1, y_2)$, but not so large as to cause numerical underflows or unintended consequences in the algorithm.  
-        \\ \\
-        Proof of Correctness: This change in weight of $e(y_1, y_2)$ ensures Dijkstra's algorithm includes this edge as it selects paths based on the lowest cumulative weight. Moreover, since we preserve the original weights of the other edges, the route still takes shortest path from $s$ to $y_2$, and $y_2$ to $t$, the shortest path is still found.
-        \\ \\
-        Proof of Preserved-Runtime: As we only changed a weight on an edge, the number of edges $|E|$ and $V$ vertices do not change. The time complexity is driven by the operations of the priority queue, which are determined by the number of edges and vertices. The runtime is not affected by the change in weight.
+        \item \textcolor{blue}{
+            To modify $G$ to $G'$, we can add a new vertex $y$ to the graph and connect it to $y_1$ and $y_2$ with an edge of weight 0. The new graph $G'$ is $(V', E')$ where $V' = V \cup \{y\}$ and $E' = E \cup \{(y_1, y), (y, y_2)\}$. By adding the new vertex $y$ and connecting it to $y_1$ and $y_2$, we can ensure that the shortest path from San Francisco to Chicago that passes through Yellowstone National Park can be found by running Dijkstra's algorithm once on $G'$. \\
+            The correctness of the algorithm is guaranteed by the fact that Dijkstra's algorithm finds the shortest path from a single source to any other vertex in a graph with non-negative weights. The zero-weight edges connecting $y_1$ and $y_2$ to $y$ ensure the path is always chosen, and it does not increase the total weight of the path. As other weights remain unchanged, the algorithm still finds the shortest path.
+            \\The modifications do not affect the total runtime of the algorithm because the runtime of Dijkstra's algorithm is $O((|V|+|E|)\log|V|)$ and the addition of a single vertex and two edges will only increase minimal RT but does not affect the runtime in Big-O notation. \\
+ }
 
     \end{enumerate}
 
@@ -245,9 +245,9 @@ Provide pseudocode, a formal proof of correctness, and a formal proof of runtime
         \EndFunction
         \end{algorithmic}
     \end{algorithm} \\
-    Proof of correctness: The algorithm works by adding a small value $\epsilon$ to the weight of each red edge in the graph. By adding this small value, the algorithm ensures that the MST algorithm $P$ will preferentially select blue edges over red edges in cases where weights of two edges of different colors tie together.
+    More details are included: \textcolor{blue}{Proof of correctness: The algorithm works by adding a small value $\epsilon$ to the weight of each red edge in the graph. By adding this small value, the algorithm ensures that the MST algorithm $P$ will preferentially select blue edges over red edges in cases where weights of two edges of different colors tie together because the modifications do not change the relative weights of edges with different originla weights, and the algorithm will still select the minimum weight connections needed to span all vertices without creating cycles, as required by the definition of an MST. In cases of identical weights, the algorithm will biases towards blue edges, and therefore minimize the number of red edges in the MST. 
      Since the MST algorithm $P$ is guaranteed to find the minimum cost spanning tree, the algorithm will select the MST that uses as few red edges as possible as blue edges are relatively lighter with added $\epsilon$ on red edges.
-     The MST computed still adheres to the minimum weight principle because $\epsilon$ is too small to affect the selection of edges unless there's a tie by original weight. Thus, the tree remains optimal in terms of weight while minimizing red edges.
+     The MST computed still adheres to the minimum weight principle because $\epsilon$ is too small to affect the selection of edges unless there's a tie by original weight. Thus, the tree remains optimal in terms of weight while minimizing red edges.}
 \end{solution}
 
 \newpage
@@ -268,23 +268,24 @@ A geneticist wants to encode a genetic sequence, and plans to use Huffman Coding
 \begin{solution}
     The solution is as follows:
     \begin{enumerate}[(a)]
-        \item The Huffman encoding of the four characters looks like the following:
+        \item \textcolor{blue}{The Huffman encoding of the four characters looks like the following:
         \begin{figure}[ht]
             \centering
                 \begin{tikzpicture}[level distance=1cm,
                                     level 1/.style={sibling distance=2cm},
                                     level 2/.style={sibling distance=2cm}]
                     \node {$100\%$}
-                        child {node {$60\%$}
-                            child {node {[A, 31\%]}}
-                            child {node {29\%}
-                                child {node {[C, 20\%]}}
-                                child {node {[G, 9\%]}}}            
+                        child {node {$60\%$, 1}
+                            child {node {[A, 31\%], 0}}
+                            child {node {29\%, 1}
+                                child {node {[C, 20\%], 0}}
+                                child {node {[G, 9\%], 1}}}            
                         }
-                        child {node{[T, $40\%$]}};
+                        child {node{[T, $40\%$], 0}};
                 \end{tikzpicture}
                 \caption{Huffman encoding of A, C, G, T}
         \end{figure}
+        \\so we have T: 0, A: 10, C: 110, G: 111}
         \item The longest possible code word is $n-1$. One senario that achieves this is as follows:
         \begin{itemize}
             \item The most frequent nucleotide has frequency of 50\%
